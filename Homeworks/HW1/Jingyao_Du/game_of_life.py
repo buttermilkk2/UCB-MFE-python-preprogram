@@ -1,6 +1,5 @@
 def evolve(initial_state):
-    rows = len(initial_state)
-    cols = len(initial_state[0])
+    rows, cols = len(initial_state), len(initial_state[0])
     evolve_result = [ [ 0 for i in range(rows) ] for j in range(cols) ]
     cell_position = [(-1,0), (1,0), (0,1), (0,-1), (-1,1),  (1,-1), (1,1), (-1,-1),]
     for i in range(rows):
@@ -13,20 +12,18 @@ def evolve(initial_state):
                     continue
                 elif initial_state[m][n] == 1:
                     living_cells += 1
-                    
+                     
             if initial_state[i][j] == 1:
                 if 2 <= living_cells <= 3:
                     evolve_result[i][j] = 1
                 else:
                     evolve_result[i][j] = 0
-                continue
                 
             if initial_state[i][j] == 0:
                 if living_cells == 3:
                     evolve_result[i][j] = 1
                 else:
                     evolve_result[i][j] = 0
-                continue
 
     return evolve_result
 
