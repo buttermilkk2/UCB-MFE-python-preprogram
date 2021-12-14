@@ -1,53 +1,66 @@
-'''
-1) <2 neighbors dies underpopulation
-2) 2 or 3 neighbors lives to next generation
-3) >3 neighbors dies overpopulation
-4) ==3 neighbors becomes alive
-'''
-
 def evolve(initial_state):
-    # assume that 1 is alive and 0 is dead
-    n = len(initial_state)
-    m = len(initial_state[0])
+	# let's check the inital lists
+    
+    print('This is the original board')
+    for i in range(len(initial_state)):
+        print(initial_state[i])
 
-    # short list comprehension for the rows and cols
-    tmp_array = [[] * n for _ in range(m)]
-    def ev2(rows,cols):
-        counter = 0
-        points = [(1,0),(-1,0),(1,1),(1,-1),(-1,1),(-1,-1),(0,1),(0,-1)]
+    board = initial_state
+    # create a temp array to fill in the next evolutionary state
+    nextgen = board
+    
+    # let's ignore the edges of the board
+    # the loop in columns and rows will start at index 1 instead of 0
+    for i in range(0,len(board)):
+        
+        for j in range(0,len(board)):
+            # let's assume that there aren't neighbors to begin with
+            neighbors = 0
+            print('current piece: ',board[i][j])
 
-        for i,j in points:
-            #account for the 0 and 1
-            if 0<=rows+j<m and 0<=cols+i<n and initial_state[rows+j][cols+i]==1:
-                counter += 1
+            try:
 
-        # only mind the living cell and count around it
-        if board[rows][cols] == 1:
-            #underpopulation
-            if counter < 2:
-                return 0
-            #live on
-            elif 2<=counter<=3:
-                return 1
-            #neither
-            else:
-                return 0
-        else: # magical resurrection if there is a group of 3 alive in neighbor cells
-            if counter == 3:
-                return 1
-            else:
-                return 0
+                # how many cells are alive?
+                # 1 is alive and 0 is dead
+                for row in range(-1,2):
+                        for col in range(-1,2):
+                            #  check out the boxes in each area that is a "neighbor"
+                            #print(board[row+i][col+j]) 
+                            neighbors += board[row+i][col+j]
+                            #print(neighbors)
 
-        #let's iterate for each cells in the rows and cols
-        for rows in range(m):
-            for cols in range(n):
-                tmp_array[rows][cols] = ev2(rows,cols)
+                    #must account for the initial board piece out of the 9 iterations
+                neighbors -= board[i][j]
+                print('number of neighbors: ',neighbors)
+                    
+                if board[i][j] == 1 and neighbors < 2:
+                    nextgen[i][j] = 0 # under population/lonliness
+                        
+                elif board[i][j] == 1 and neighbors > 3:
+                    nextgen[i][j] = 0 # over populated
+                        
+                elif board[i][j] == 0 and neighbors == 3:
+                    nextgen[i][j] = 1 # add to population
+                        
+                else:
+                    nextgen[i][j] = board[i][j] # stays the same
 
-        for rows in range(m):
-            for cols in range(n):
-                initial_state[rows][cols] = tmp_array(rows,cols)
+            except IndexError as e:
+                nextgen[i][j] = 0
 
-    return initial_state
+                
+
+
+            
+            
+        
+
+    for i in range(len(nextgen)):
+        print(nextgen[i])
+
+    return nextgen
+    pass
+
 
 test_case_1 = [
     [0, 0, 0, 0],
