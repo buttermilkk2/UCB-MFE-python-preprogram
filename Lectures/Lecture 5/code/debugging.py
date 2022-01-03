@@ -12,4 +12,4 @@ def quadratic_solver(a, b, c):
 
 
 if __name__ == '__main__':
-    print(quadratic_solver(1, 2, 1))
+    print(quadratic_solver(2, 4, 2))  # -1 -1

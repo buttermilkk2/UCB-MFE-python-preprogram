@@ -13,13 +13,14 @@
 
 - Why bother debugging? 
 - You need to debug when:
-	- you see a Shape ratio of 40
+	- you see a Sharpe ratio of 40
 	- you are trying to understand your teammate's code
 - How many of you debug via:
 	- `print(...)`
 	- Binary search
 	- `pdb`/`ipdb` (or `breakpoint`) (need to install `ipdb`)
         - `breakpoint` will default use `pdb`, if you want to use `ipdb` need to `export PYTHONBREAKPOINT=ipdb.set_trace`
+        - if you are using a Mac, you can add the above `export ...` line into your `~/.bash_profile`, so that it will be run every time you start a new shell window
 - Examples 
 	- debug in `ipdb` (make sure you `pip install ipdb`)
 	- debug in `jupyter notebook` (use the magic command `%debug` after you see an error)
@@ -61,6 +62,7 @@
             - `pip install flake8`
             - `flake8 path/to/code/to/check.py` or `flake8 path/to/code/`
             - note that flake8 cannot identify spacing issues
+            - note that flake8 does not fix issues automatically
         - [`black`](https://github.com/psf/black)
             - stylistic lint
             - `pip install black`
@@ -116,44 +118,3 @@
             - assume the behavior of downstream/slow/IO logic
         - [fixture](https://docs.pytest.org/en/6.2.x/fixture.html#what-fixtures-are)
             - to prepare something to be shared (e.g. dataset, models)
-
-## Integration test and Regression test
-- Integration test
-    - data cleansing pipeline
-    - model training pipeline
-    - model serving
-    - ...
-- Regression test
-    - latency & responding time
-    - backtest (?)
-    - ...
-- reference:
-    - https://www.kdnuggets.com/2019/11/testing-machine-learning-pipelines.html
-
-
-## makefile
-- Make your life easier
-- `make lint` instead of running `flake8` +  `mypy` + ...
-- `make install` <- who doesn't like 1-click setup?
-- checkout `Makefile`
-- Note: indentation needs to be `Tab`. It cannot be `Spaces`
-
-# ==== if time allows ===
-
-## Development Environment
-- **Local/Development**: your laptop or a sandbox on a development server 
-- **Testing**: for all the tests, shares the same environement as `staging` and `production`
-- **Staging**: an environment for final testing immediately prior to deploying to production. A mirror of `production`, but not facing to the users.
-- **Production**: the environment that users/clients directly interact with
-- [some white board illustration here]
-
-## What does productionization mean?
-- when your customers are going to meet your code
-- [white-boarding] illustrate how customers interact with your code (while you are sleeping) 
-  - example: what happens when you type www.google.com (while google engineers enjoy Saturday vacation)
-    - find the ip of www.google.com -> xxx.xx.xx.xx
-    - establish a TCP connection with that ip 
-    - send http or https request via the connection
-    - wait for response (error code + content)
-  - How do we bring our model to the customers?
-
