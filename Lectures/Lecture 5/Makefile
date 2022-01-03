@@ -1,6 +1,6 @@
 clean: clean-pyc
 	conda remove --name lecture_5 --all --yes || echo
-	echo Run "source deactivate" to exit from the conda environment
+	echo Run "conda deactivate" to exit from the conda environment
 
 clean-pyc: ## removes pyc files from your local directory
 	find . -name '*.pyc' -exec rm -f {} \;
