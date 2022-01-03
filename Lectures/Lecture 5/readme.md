@@ -2,8 +2,7 @@
 
 ## Goal
 - Be very good at debugging Python code
-- Write good unit test
-- Understand continuous integration 
+- Understand different varieties of testing
 
 
 ## Setup
@@ -32,9 +31,9 @@
 - Why bother testings?
 - Different types of tests
 	- lint checks
-	- unit test
-	- integration test
-	- regression test
+	- [unit test](https://en.wikipedia.org/wiki/Unit_testing)
+	- [integration test](https://en.wikipedia.org/wiki/Integration_testing)
+	- [regression test](https://en.wikipedia.org/wiki/Regression_testing)
 
 ## Lint check
 - code quality matters
@@ -107,8 +106,39 @@
     - `pip install pytest` and `pip install unittest`
     - [what's the difference?](https://www.pythonpool.com/python-unittest-vs-pytest/)
         - we usually mix them up as long as it gets things done
-    - 
+    - most useful concepts
+        - basic tests
+        - parametrize
+            - avoid repetition
+        - expect failure
+            - failure can also be verified
+        - mock
+            - assume the behavior of downstream/slow/IO logic
+        - [fixture](https://docs.pytest.org/en/6.2.x/fixture.html#what-fixtures-are)
+            - to prepare something to be shared (e.g. dataset, models)
 
+## Integration test and Regression test
+- Integration test
+    - data cleansing pipeline
+    - model training pipeline
+    - model serving
+    - ...
+- Regression test
+    - latency & responding time
+    - backtest (?)
+    - ...
+- reference:
+    - https://www.kdnuggets.com/2019/11/testing-machine-learning-pipelines.html
+
+
+## makefile
+- Make your life easier
+- `make lint` instead of running `flake8` +  `mypy` + ...
+- `make install` <- who doesn't like 1-click setup?
+- checkout `Makefile`
+- Note: indentation needs to be `Tab`. It cannot be `Spaces`
+
+# ==== if time allows ===
 
 ## Development Environment
 - **Local/Development**: your laptop or a sandbox on a development server 
@@ -126,4 +156,4 @@
     - send http or https request via the connection
     - wait for response (error code + content)
   - How do we bring our model to the customers?
-- Huh! So how do we build a service? 
+
