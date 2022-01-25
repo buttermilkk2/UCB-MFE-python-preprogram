@@ -1,2 +1,0 @@
-def boo():
-    return 'asef'
