@@ -75,20 +75,21 @@
   - schema checks
     - `jsonschema`, so documentation, schema definition, schema check, all in one place!
 
-## One more thing important: database
-
-
 
 ## Let's build a real app!
 - simple requirement
   - a trained model
-  - an endpoint
+      - productionalize model training
+      - load data, save model
+      - how to use `click` to solve input param issue
+  - a serivce
+    - how to load model
+    - how to load data
+  - a predict method
+    - how to add validation? (open-ended topic)
 - getting fancier
-  - adding a database
+  - adding a database (no code)
   
-
-  
-
 
 ## Additional topic (If time allows...)
 - how to productionize model training (white-boarding)
