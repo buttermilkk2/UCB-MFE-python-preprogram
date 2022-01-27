@@ -5,7 +5,9 @@ import time
 
 def creat_app():
     app = Flask(__name__)
-    app.df = pd.DataFrame()
+    app.df = pd.DataFrame()  # connect_sql(DATA_BASE_PATH)
+    # app.model = load_model
+    # app.data = load_data
     return app
 
 

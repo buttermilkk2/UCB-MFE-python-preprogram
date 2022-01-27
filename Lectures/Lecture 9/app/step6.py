@@ -10,13 +10,6 @@ def creat_app():
     return app
 
 
-app = creat_app()
-
-
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
-
-
 if __name__ == '__main__':
+    app = creat_app()
     app.run("localhost", port=5000)

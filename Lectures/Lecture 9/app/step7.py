@@ -4,7 +4,6 @@ from flasgger import Swagger
 from flask import request
 
 
-
 def creat_app():
     app = Flask(__name__)
     app.swagger = Swagger(app)
@@ -23,6 +22,8 @@ def ping():
     responses:
       200:
         description: Server is up
+      400:
+        description: Server is dead
     """
     return "pong"
 
@@ -69,7 +70,7 @@ def colors(palette):
     return result
 
 
-# curl -X GET localhost:5000/get_colors -d '{"palette": "all"}'
+# curl -X POST localhost:5000/get_colors -d '{"palette": "all"}'
 @app.route('/get_colors', methods=["POST"])
 def get_colors():
     """A different way of getting colors
@@ -98,11 +99,14 @@ def get_colors():
             rgb: ['red', 'green', 'blue']
     """
     req = request.get_json(force=True)
-    jsonschema.validate(
-        req,
-        schema=app.swagger.get_schema("get_color_input"),
-        format_checker=jsonschema.FormatChecker(),
-    )
+    try:
+        jsonschema.validate(
+            req,
+            schema=app.swagger.get_schema("get_color_input"),
+            format_checker=jsonschema.FormatChecker(),
+        )
+    except jsonschema.exceptions.ValidationError:
+        return "invalid input", 403
     palette = req['palette']
     all_colors = {
         'cmyk': ['cyan', 'magenta', 'yellow', 'black'],
