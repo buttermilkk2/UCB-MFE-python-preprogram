@@ -7,6 +7,11 @@ from app.step3 import app
 def client():
     with app.test_client() as client:
         yield client
+    # the above 2 line is somewhat equivalent to
+    # client = app.test_client()
+    # yield client // <-- this means the caller of `client()` can do anything,
+    # // but after the caller ends, it will come back to this function
+    # client.close()
 
 
 def test_hello_world(client):

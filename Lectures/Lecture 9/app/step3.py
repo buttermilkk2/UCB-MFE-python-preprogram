@@ -31,7 +31,7 @@ def show_name(name):
 
 
 # ========================================
-# Variable
+# HTTP methods
 # ========================================
 from flask import request
 

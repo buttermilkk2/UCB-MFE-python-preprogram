@@ -21,7 +21,7 @@
       
 ## Introduction to `Flask`
 - set up a simple [flask service](https://flask.palletsprojects.com/en/2.0.x/)
-  - `conda remove --name evmoscan --all`
+  - `conda create -n lecture_9 python=3.10 -y`
   - create a simple flask app
     - `FLASK_ENV=development FLASK_APP=app/step1.py flask run`
     - `FLASK_ENV=development` is helpful for debugging w/o restarting the service, but only use for debug

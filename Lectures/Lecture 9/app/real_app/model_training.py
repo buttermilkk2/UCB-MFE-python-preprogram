@@ -5,6 +5,8 @@ import pandas as pd
 import numpy as np
 from functools import reduce
 import pickle
+import click
+
 
 from model_definition import pipeline
 
@@ -34,9 +36,9 @@ def vol_ohlc(df, lookback=10):
 
 
 # this is just copying from Lecture 8's notebook
-def preping_data() -> tuple[pd.DataFrame, pd.Series]:
+def preping_data(data_location) -> tuple[pd.DataFrame, pd.Series]:
     # this should be a global variable
-    data_location = 'sqlite:////Users/tianyixia/dev/UCB-MFE-python-preprogram/data/data.db'
+    # data_location = 'sqlite:////Users/tianyixia/dev/UCB-MFE-python-preprogram/data/data.db'
     ohlc = pd.read_sql('SELECT * FROM ohlc', data_location)
 
     def df_merge(left, right):
@@ -62,8 +64,13 @@ def preping_data() -> tuple[pd.DataFrame, pd.Series]:
     return X, y
 
 
-def main():
-    X, y = preping_data()
+@click.command()
+@click.option('--data-path')
+@click.option('--model-path')
+def main(data_path, model_path):
+    assert data_path and model_path, "need to provide valid data path and model path"
+
+    X, y = preping_data(data_location=data_path)
     print(f"preping data complete, X: {X.shape} y: {y.shape}")
 
     test_size = 0.2
@@ -77,7 +84,9 @@ def main():
     search.fit(X, y)
     best_model = search.best_estimator_
     print(f"model training done. Best params: {search.best_params_}")
-    pickle.dump(best_model, open('/Users/tianyixia/dev/UCB-MFE-python-preprogram/data/trained_model.pckl', 'wb'))
+
+    # pickle.dump(best_model, open('/Users/tianyixia/dev/UCB-MFE-python-preprogram/data/trained_model.pckl', 'wb'))
+    pickle.dump(best_model, open(model_path, 'wb'))
 
 
 if __name__ == '__main__':
