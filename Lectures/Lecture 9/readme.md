@@ -1,4 +1,4 @@
-# Lecture 9 & 10: Build an App
+# Lecture 9: Build an App
 
 ## Web Application Architecture
 - recap on what's behind www.google.com
@@ -89,10 +89,3 @@
     - how to add validation? (open-ended topic)
 - getting fancier
   - adding a database (no code)
-  
-
-## Additional topic (If time allows...)
-- how to productionize model training (white-boarding)
-- how to do model promotion
-- parallel programming or multi threading
-- solidity/python/blockchain
